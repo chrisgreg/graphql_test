@@ -3,7 +3,22 @@ defmodule GqlChatWeb.Schema do
 
   import_types(GqlChatWeb.Schema.AccountTypes)
   import_types(GqlChatWeb.Schema.ContentTypes)
+
   alias GqlChatWeb.Resolvers
+  alias GqlChat.{Accounts, Chat}
+
+  def context(ctx) do
+    loader =
+      Dataloader.new()
+      |> Dataloader.add_source(Accounts, Accounts.data())
+      |> Dataloader.add_source(Chat, Chat.data())
+
+    Map.put(ctx, :loader, loader)
+  end
+
+  def plugins do
+    [Absinthe.Middleware.Dataloader | Absinthe.Plugin.defaults()]
+  end
 
   query do
     @desc "Get all messages"
