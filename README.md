@@ -3,16 +3,22 @@
 To start your Phoenix server:
 
   * Run `mix setup` to install and setup dependencies
+  * Run `mix ecto.create` to create DB
+  * Run `mix ecto.reset` to seed database
   * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Example Usage
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Visit: https://localhost:4000/api/graphiql
 
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+Try the following:
+```
+query{
+  users(id: 1){
+    username,
+    messages{
+      body
+    }
+  }
+}
+```
