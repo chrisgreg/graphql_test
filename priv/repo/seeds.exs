@@ -19,9 +19,13 @@ rohan = %User{username: "Rohan"} |> Repo.insert!()
 ken = %User{username: "Ken"} |> Repo.insert!()
 sara = %User{username: "Sara"} |> Repo.insert!()
 
-conor_rohan = GqlChat.Conversations.new_conversation(%{user_1_id: connor.id, user_2_id: rohan.id})
-rohan_ken = GqlChat.Conversations.new_conversation(%{user_1_id: rohan.id, user_2_id: ken.id})
-ken_sara = GqlChat.Conversations.new_conversation(%{user_1_id: ken.id, user_2_id: sara.id})
+{:ok, conor_rohan} =
+  GqlChat.Conversations.new_conversation(%{user_1_id: connor.id, user_2_id: rohan.id})
+
+{:ok, rohan_ken} =
+  GqlChat.Conversations.new_conversation(%{user_1_id: rohan.id, user_2_id: ken.id})
+
+{:ok, ken_sara} = GqlChat.Conversations.new_conversation(%{user_1_id: ken.id, user_2_id: sara.id})
 
 %Message{body: "Whoa, I love Svelte!", user_id: connor.id, conversation_id: conor_rohan.id}
 |> Repo.insert!()
