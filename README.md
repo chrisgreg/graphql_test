@@ -31,7 +31,7 @@ query{
 ### Fetch all users
 ```gql
 query{
- 	users{
+  users{
     id
     username
   }
@@ -74,4 +74,3 @@ mutation {
 ## Known issues
 * Graphiql wants to use camel case for mutations but they won't work if I don't use snake case...
 * No auth or checking so you can create a message for any conversation even if you're not part of it
->>>>>>> conversations
