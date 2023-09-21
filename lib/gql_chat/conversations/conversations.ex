@@ -9,6 +9,8 @@ defmodule GqlChat.Conversations do
         conversation
         |> Repo.preload([:user_1, :user_2])
 
+        {:ok, conversation}
+
       error ->
         error
     end

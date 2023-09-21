@@ -28,14 +28,38 @@ defmodule GqlChatWeb.Schema do
 
     @desc "Get all users"
     field :users, list_of(:user) do
+      resolve(&Resolvers.Accounts.all_users/3)
+    end
+
+    @desc "Get user"
+    field :user, :user do
       arg(:id, non_null(:id))
       resolve(&Resolvers.Accounts.find_user/3)
     end
 
-    @desc "Get all conversations"
+    @desc "Get all conversations for a user"
     field :conversations, list_of(:conversation) do
       arg(:user_id, non_null(:id))
       resolve(&Resolvers.Conversation.list_conversations/3)
+    end
+  end
+
+  mutation do
+    @desc "Create a new conversation between two users"
+    field :create_conversation, type: :conversation do
+      arg(:user_1_id, non_null(:integer))
+      arg(:user_2_id, non_null(:integer))
+
+      resolve(&Resolvers.Conversation.create_conversation/3)
+    end
+
+    @desc "Create a new message for a conversation"
+    field :create_message, type: :message do
+      arg(:user_id, non_null(:integer))
+      arg(:conversation_id, non_null(:integer))
+      arg(:body, non_null(:string))
+
+      resolve(&Resolvers.Chat.create_message/3)
     end
   end
 end

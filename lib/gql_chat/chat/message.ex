@@ -13,7 +13,7 @@ defmodule GqlChat.Chat.Message do
   @doc false
   def changeset(messages, attrs) do
     messages
-    |> cast(attrs, [:body, :user_id])
+    |> cast(attrs, [:body, :user_id, :conversation_id])
     |> validate_required([:body, :user_id, :conversation_id])
   end
 end

@@ -12,4 +12,8 @@ defmodule GqlChatWeb.Resolvers.Chat do
   def list_messages(_parent, _args, _resolution) do
     {:ok, Chat.list_message()}
   end
+
+  def create_message(_parent, args, _resolution) do
+    Chat.create_message(args)
+  end
 end
