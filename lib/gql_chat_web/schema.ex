@@ -64,4 +64,12 @@ defmodule GqlChatWeb.Schema do
       resolve(&Resolvers.Chat.create_message/3)
     end
   end
+
+  subscription do
+    field :new_message, :message do
+      config(fn _args, _info ->
+        {:ok, topic: "*"}
+      end)
+    end
+  end
 end

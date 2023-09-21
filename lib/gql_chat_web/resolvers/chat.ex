@@ -27,6 +27,13 @@ defmodule GqlChatWeb.Resolvers.Chat do
           any
         ) :: any
   def create_message(_parent, args, _resolution) do
-    Chat.create_message(args)
+    case Chat.create_message(args) do
+      {:ok, message} ->
+        Absinthe.Subscription.publish(GqlChatWeb.Endpoint, message, new_message: "*")
+        {:ok, message}
+
+      {:error, changeset} ->
+        {:ok, "Error #{inspect(changeset)}"}
+    end
   end
 end

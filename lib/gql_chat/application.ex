@@ -17,7 +17,8 @@ defmodule GqlChat.Application do
       # Start Finch
       {Finch, name: GqlChat.Finch},
       # Start the Endpoint (http/https)
-      GqlChatWeb.Endpoint
+      GqlChatWeb.Endpoint,
+      {Absinthe.Subscription, GqlChatWeb.Endpoint}
       # Start a worker by calling: GqlChat.Worker.start_link(arg)
       # {GqlChat.Worker, arg}
     ]

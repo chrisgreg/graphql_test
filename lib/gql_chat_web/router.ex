@@ -8,7 +8,11 @@ defmodule GqlChatWeb.Router do
   scope "/api" do
     pipe_through :api
 
-    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: GqlChatWeb.Schema, interface: :simple
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: GqlChatWeb.Schema,
+      interface: :simple,
+      socket: GqlChatWeb.UserSocket
+
     forward "/", Absinthe.Plug, schema: GqlChatWeb.Schema
   end
 
