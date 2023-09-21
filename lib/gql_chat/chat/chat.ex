@@ -28,7 +28,12 @@ defmodule GqlChat.Chat do
     Repo.all(Message)
   end
 
-  def list_message(user) do
+  def list_message(%GqlChat.Conversations.Conversation{} = conversation) do
+    from(m in Message, where: m.conversation_id == ^conversation.id)
+    |> Repo.all()
+  end
+
+  def list_message(%GqlChat.Accounts.User{} = user) do
     from(m in Message, where: m.user_id == ^user.id)
     |> Repo.all()
   end

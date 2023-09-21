@@ -4,7 +4,7 @@ defmodule GqlChat.Accounts.User do
 
   schema "users" do
     field :username, :string
-    has_many :messages, GqlChat.Chat.Message
+    has_many :conversations, GqlChat.Conversations.Conversation
 
     timestamps()
   end
