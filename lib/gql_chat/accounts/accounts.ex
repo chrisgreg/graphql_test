@@ -8,6 +8,12 @@ defmodule GqlChat.Accounts do
 
   alias GqlChat.Accounts.User
 
+  def data(), do: Dataloader.Ecto.new(Repo, query: &query/2)
+
+  def query(queryable, _params) do
+    queryable
+  end
+
   @doc """
   Returns the list of user.
 

@@ -5,6 +5,7 @@ defmodule GqlChat.Chat.Message do
   schema "messages" do
     field :body, :string
     belongs_to :user, GqlChat.Accounts.User
+    belongs_to :conversation, GqlChat.Conversations.Conversation
 
     timestamps()
   end
@@ -12,7 +13,7 @@ defmodule GqlChat.Chat.Message do
   @doc false
   def changeset(messages, attrs) do
     messages
-    |> cast(attrs, [:body, :user_id])
-    |> validate_required([:body])
+    |> cast(attrs, [:body, :user_id, :conversation_id])
+    |> validate_required([:body, :user_id, :conversation_id])
   end
 end

@@ -7,7 +7,6 @@ defmodule GqlChat.Chat do
   alias GqlChat.Repo
 
   alias GqlChat.Chat.Message
-  alias GqlChat.Accounts.User
 
   @doc """
   Returns the list of message.
@@ -18,11 +17,23 @@ defmodule GqlChat.Chat do
       [%Message{}, ...]
 
   """
+
+  def data(), do: Dataloader.Ecto.new(Repo, query: &query/2)
+
+  def query(queryable, _params) do
+    queryable
+  end
+
   def list_message do
     Repo.all(Message)
   end
 
-  def list_message(user) do
+  def list_message(%GqlChat.Conversations.Conversation{} = conversation) do
+    from(m in Message, where: m.conversation_id == ^conversation.id)
+    |> Repo.all()
+  end
+
+  def list_message(%GqlChat.Accounts.User{} = user) do
     from(m in Message, where: m.user_id == ^user.id)
     |> Repo.all()
   end
