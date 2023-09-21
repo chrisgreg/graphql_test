@@ -23,6 +23,8 @@ defmodule GqlChatWeb.Schema do
   query do
     @desc "Get all messages"
     field :messages, list_of(:message) do
+      arg(:limit, :integer, default_value: 5)
+      arg(:offset, :integer, default_value: 0)
       resolve(&Resolvers.Chat.list_messages/3)
     end
 

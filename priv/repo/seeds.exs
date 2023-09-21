@@ -39,6 +39,9 @@ sara = %User{username: "Sara"} |> Repo.insert!()
 %Message{body: "I love colours and mayonaise", user_id: sara.id, conversation_id: ken_sara.id}
 |> Repo.insert!()
 
+%Message{body: "Spicy!", user_id: ken.id, conversation_id: ken_sara.id}
+|> Repo.insert!()
+
 %Message{body: "Moar accessibility!", user_id: ken.id, conversation_id: rohan_ken.id}
 |> Repo.insert!()
 

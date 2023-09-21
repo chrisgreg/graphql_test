@@ -24,17 +24,25 @@ defmodule GqlChat.Chat do
     queryable
   end
 
-  def list_message do
-    Repo.all(Message)
+  def list_message(limit, offset) do
+    from(m in Message)
+    |> fetch_all_messages(limit, offset)
   end
 
-  def list_message(%GqlChat.Conversations.Conversation{} = conversation) do
+  def list_message(%GqlChat.Conversations.Conversation{} = conversation, limit, offset) do
     from(m in Message, where: m.conversation_id == ^conversation.id)
-    |> Repo.all()
+    |> fetch_all_messages(limit, offset)
   end
 
-  def list_message(%GqlChat.Accounts.User{} = user) do
+  def list_message(%GqlChat.Accounts.User{} = user, limit, offset) do
     from(m in Message, where: m.user_id == ^user.id)
+    |> fetch_all_messages(limit, offset)
+  end
+
+  defp fetch_all_messages(query, limit, offset) do
+    query
+    |> limit(^limit)
+    |> offset(^offset)
     |> Repo.all()
   end
 
